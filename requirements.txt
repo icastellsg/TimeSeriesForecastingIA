@@ -10,3 +10,5 @@ scipy
 torch
 Tensorflow
 nixtla
+prophet
+neuralprophet

@@ -3,6 +3,7 @@ matplotlib
 pillow
 requests
 numpy
+plotly-resampler
 pandas
 scikit-learn
 scikit-image
@@ -12,3 +13,4 @@ Tensorflow
 nixtla
 prophet
 neuralprophet
+statsmodels

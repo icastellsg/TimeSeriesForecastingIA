@@ -1,29 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li class="{% if request.path == '/suntracer/' %}active{% endif %}"><a href="/suntracer/">Suntracer</a></li>
-                <li class="{% if request.path == '/knx/' %}active{% endif %}"><a href="/knx/">KNX Touch</a></li>
-                <li class="{% if request.path == '/sewy/' %}active{% endif %}"><a href="/sewy/">Sewy</a></li>
-                <li class="{% if request.path == '/ventana/' %}active{% endif %}"><a href="/ventana/">Ventana</a></li>
-                <li class="{% if request.path == '/luz/' %}active{% endif %}"><a href="/luz/">Luz</a></li>
+    <nav class="navbar navbar-expand-lg" data-bs-theme="dark" style="background-color: var(--color_primary);">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">4Cast</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/suntracer/' %}active{% endif %}" aria-current="suntracer" href="/suntracer/">Suntracer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/knx/' %}active{% endif %}" href="/knx/">KNX Touch</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/sewy/' %}active{% endif %}" href="/sewy/">Sewy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/ventana/' %}active{% endif %}" href="/ventana/">Ventana</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/luz/' %}active{% endif %}" href="/luz/">Luz</a>
+            </li>
             </ul>
-        </nav>
-    </header>
+          </div>
+        </div>
+      </nav>
+
+
     
     <main>
         {% block content %}{% endblock content %}
     </main>
     
     <footer>
-        <p>Este es el pie de página</p>
+        <p>Trabajo Fin de Master Iván Castells Galindo</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@ model12h = load_model('../LSMTTensorflow/bestModel_720.keras')
 
 @app.route('/')
 @app.route('/predict/')
+@app.route('/knx/')
 def index():
     return render_template('predict.html')
 
@@ -32,16 +33,7 @@ def predict_temperature_suntracer():
         
         prediction.append(prediction_12h[0][-1])
         
-        #Save latest plot
-        fig = Figure()
-        
-        ax = fig.subplots()
-        ax.plot(prediction_12h.flatten())
-        
-        buf = BytesIO()
-        fig.savefig(buf, format="png")
-        
-        data = base64.b64encode(buf.getbuffer()).decode("ascii")
+        data = get_prediction_graph(prediction_12h)
         
         return render_template('predict_with_flaskForms.html', form=form, prediction=prediction, img_data=data)
     return render_template('predict_with_flaskForms.html', form=form)
@@ -49,3 +41,17 @@ def predict_temperature_suntracer():
 def get_prediction(model, value):
     predict = model.predict(np.array([[value]]))
     return predict
+
+def get_prediction_graph(prediction):
+    fig = Figure()
+    ax = fig.subplots()
+    ax.set_title("Forecasting (12h)")
+    ax.set_ylabel("Valor")
+    ax.set_xlabel("Minutos")
+    ax.plot(prediction.flatten())
+    
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    
+    data = base64.b64encode(buf.getbuffer()).decode("ascii")
+    return data

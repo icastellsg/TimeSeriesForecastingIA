@@ -6,7 +6,7 @@
 <body>
     <h1>Predicción de temperatura</h1>
     
-    <form action="predict" method="post">
+    <form action="/predict" method="post">
         <label for="temperatura">Ingrese el valor de temperatura:</label>
         <input type="number" id="temperatura" name="temperatura" required>
         <br><br>
@@ -14,7 +14,9 @@
     </form>
 
     {% if prediction %}
-        <h2>La predicción de temperatura es: {{ prediction }}</h2>
+        <h2>La predicción de temperatura en 1 hora es: {{ prediction[0] }}</h2>
+        <h2>La predicción de temperatura en 6 horas es: {{ prediction[1] }}</h2>
+        <h2>La predicción de temperatura en 12 horas es: {{ prediction[2] }}</h2>        
     {% endif %}
 
 </body>

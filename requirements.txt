@@ -14,3 +14,4 @@ nixtla
 prophet
 neuralprophet
 statsmodels
+Flask

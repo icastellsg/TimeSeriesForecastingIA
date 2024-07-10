@@ -18,5 +18,10 @@
         <h2>La predicción de temperatura en 1 hora es: {{ prediction[0] }}</h2>
         <h2>La predicción de temperatura en 6 horas es: {{ prediction[1] }}</h2>
         <h2>La predicción de temperatura en 12 horas es: {{ prediction[2] }}</h2>        
+
+        {% if img_data %}
+        <img src='data:image/png;base64, {{ img_data }}'/>
+        {% endif %}
     {% endif %}
+
 {% endblock content %}

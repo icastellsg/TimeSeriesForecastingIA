@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Predicción de temperatura</title>
-</head>
-<body>
-    <h1>Predicción de temperatura</h1>
-    
+{% extends "base_template.html" %}
+
+{% block title%}Predicción de temperatura{% endblock title %}
+
+{% block content %}
     <form action="/predict" method="post">
         <label for="temperatura">Ingrese el valor de temperatura:</label>
         <input type="number" id="temperatura" name="temperatura" required>
@@ -18,6 +15,4 @@
         <h2>La predicción de temperatura en 6 horas es: {{ prediction[1] }}</h2>
         <h2>La predicción de temperatura en 12 horas es: {{ prediction[2] }}</h2>        
     {% endif %}
-
-</body>
-</html>
+{% endblock content %}

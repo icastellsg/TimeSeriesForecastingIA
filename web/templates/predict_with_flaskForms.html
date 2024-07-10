@@ -1,0 +1,22 @@
+{% extends "base_template.html" %}
+{% from "_formshelpers.html" import render_field %}
+
+{% block title %}Predicción de temperatura{% endblock title %}
+
+{% block content %}
+    <form action="" method="post" novalidate>
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ render_field(form.temperatura, class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+    {% if prediction %}
+        <h2>La predicción de temperatura en 1 hora es: {{ prediction[0] }}</h2>
+        <h2>La predicción de temperatura en 6 horas es: {{ prediction[1] }}</h2>
+        <h2>La predicción de temperatura en 12 horas es: {{ prediction[2] }}</h2>        
+    {% endif %}
+{% endblock content %}

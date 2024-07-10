@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="{% if request.path == '/suntracer/' %}active{% endif %}"><a href="/suntracer/">Suntracer</a></li>
+                <li class="{% if request.path == '/knx/' %}active{% endif %}"><a href="/knx/">KNX Touch</a></li>
+                <li class="{% if request.path == '/sewy/' %}active{% endif %}"><a href="/sewy/">Sewy</a></li>
+                <li class="{% if request.path == '/ventana/' %}active{% endif %}"><a href="/ventana/">Ventana</a></li>
+                <li class="{% if request.path == '/luz/' %}active{% endif %}"><a href="/luz/">Luz</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+    
+    <footer>
+        <p>Este es el pie de página</p>
+    </footer>
+</body>
+</html>

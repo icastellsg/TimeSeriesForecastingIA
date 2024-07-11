@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from forms import SuntracerForm
 import tensorflow as tf
 from io import BytesIO
+import json
 import base64
 from matplotlib.figure import Figure
 from tensorflow.keras.models import load_model
@@ -19,6 +20,19 @@ model12h = load_model('../LSMTTensorflow/bestModel_720.keras')
 @app.route('/knx/')
 def index():
     return render_template('predict.html')
+
+@app.route('/suntracer/json', methods=['POST'])
+def predict_temperature_suntracer_json():
+    temperatura = np.array(request.json['temperatura'])
+    prediction = [
+        get_prediction(model1h, temperatura)[0][-1],
+        get_prediction(model6h, temperatura)[0][-1],
+        get_prediction(model12h, temperatura)[0][-1]
+    ]
+    
+    prediction = np.array(prediction, dtype=np.float64).tolist()
+    
+    return json.dumps(prediction)
 
 @app.route('/suntracer/', methods=['GET','POST'])
 def predict_temperature_suntracer():

@@ -69,3 +69,7 @@ def get_prediction_graph(prediction):
     
     data = base64.b64encode(buf.getbuffer()).decode("ascii")
     return data
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html')

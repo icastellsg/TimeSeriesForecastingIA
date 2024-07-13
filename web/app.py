@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from suntracer import SuntracerForm, suntracerPredictions, suntracerPredictionsJSON, labels as suntracer_labels
+from sewy import SewyForm, sewyPredictions, sewyPredictionsJSON, labels as sewy_labels
 import json
 import numpy as np
 
@@ -23,8 +24,24 @@ def predict_temperature_suntracer():
     form = SuntracerForm()
     prediction, graphs, labels = suntracerPredictions()
     if prediction:
-        return render_template('predict_with_flaskForms.html', form=form, prediction=prediction, img_data=graphs, labels=labels)
-    return render_template('predict_with_flaskForms.html', form=form)
+        return render_template('predict_with_flaskForms.html', device="Suntracer", form=form, prediction=prediction, img_data=graphs, labels=labels)
+    return render_template('predict_with_flaskForms.html', device="Suntracer", form=form)
+
+@app.route('/sewy/json', methods=['POST'])
+def predict_temperature_sewy_json():
+    prediction = sewyPredictionsJSON(request.json)
+    
+    return prediction
+
+@app.route('/sewy/', methods=['GET','POST'])
+def predict_temperature_sewy():
+    form = SewyForm()
+    prediction, graphs, labels = sewyPredictions()
+    if prediction:
+        return render_template('predict_with_flaskForms.html', device="Sewy", form=form, prediction=prediction, img_data=graphs, labels=labels)
+    return render_template('predict_with_flaskForms.html', device="Sewy", form=form)
+
+
 
 @app.errorhandler(404)
 def not_found(e):

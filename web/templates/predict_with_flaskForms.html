@@ -1,11 +1,11 @@
 {% extends "base_template.html" %}
-{% from "_formshelpers.html" import render_field, render_boolean_field %}
+{% from "_formshelpers.html" import render_field, render_boolean_field, render_choices_field %}
 
-{% block title %}Predicción de temperatura{% endblock title %}
+{% block title %}Predicción de {{ device }}{% endblock title %}
 
 {% block content %}
 
-    <h2>Suntracer</h2>  
+    <h2>{{ device }}</h2> 
     <form action="" method="post" novalidate>
         {{ form.csrf_token }}
         {% for field in form %}
@@ -17,6 +17,8 @@
                 </div>
             {% elif field == form.csrf_token %}
                 <!-- Don't display this field -->
+            {% elif field.type == 'SelectField' %}
+                {{ render_choices_field(field) }}
             {% else %}
                 {{ render_field(field, class='form-control') }}
             {% endif %}

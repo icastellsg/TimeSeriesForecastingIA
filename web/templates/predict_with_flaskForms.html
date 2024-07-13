@@ -1,5 +1,5 @@
 {% extends "base_template.html" %}
-{% from "_formshelpers.html" import render_field %}
+{% from "_formshelpers.html" import render_field, render_boolean_field %}
 
 {% block title %}Predicción de temperatura{% endblock title %}
 
@@ -8,10 +8,19 @@
     <h2>Suntracer</h2>  
     <form action="" method="post" novalidate>
         {{ form.csrf_token }}
-        {{ render_field(form.temperatura, class='form-control') }}
-        <div class="d-grid gap-2 col-4 mx-auto">
-            {{ form.submit(class="btn btn-primary ") }}
-        </div>
+        {% for field in form %}
+            {% if field.type == 'BooleanField' %}
+                {{ render_boolean_field(field) }}
+            {% elif field.type == 'SubmitField' %}
+                <div class="d-grid gap-2 col-4 mx-auto">
+                    {{ form.submit(class="btn btn-primary ") }}
+                </div>
+            {% elif field == form.csrf_token %}
+                <!-- Don't display this field -->
+            {% else %}
+                {{ render_field(field, class='form-control') }}
+            {% endif %}
+        {% endfor %}
     </form>
 
     {% if prediction %}
@@ -26,17 +35,40 @@
             </tr>
         </thead>
         <tbody>
+            {% for label in labels %}
             <tr>
-                <th>Temperatura</th>
-                <td>{{ prediction[0] }}</td>
-                <td>{{ prediction[1] }}</td>
-                <td>{{ prediction[2] }}</td>
+                <th>{{ label }}</th>
+                <td>{{ prediction[0][loop.index-1] }}</td>
+                <td>{{ prediction[1][loop.index-1] }}</td>
+                <td>{{ prediction[2][loop.index-1] }}</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>  
 
         {% if img_data %}
-        <img class="img-fluid rounded mx-auto d-block" src='data:image/png;base64, {{ img_data }}'/>
+        <div id="carouselIndicators" class="carousel carousel-dark slide">
+            <div class="carousel-indicators">
+            {% for img in img_data %}
+            <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ loop.index }}"></button>
+            {% endfor %}
+            </div>
+            <div class="carousel-inner">
+            {% for img in img_data %}
+            <div class="carousel-item{% if loop.first %} active{% endif %}">
+                    <img class="img-fluid rounded mx-auto d-block" src='data:image/png;base64, {{ img }}'/>
+                </div>
+            {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
         {% endif %}
     {% endif %}
 

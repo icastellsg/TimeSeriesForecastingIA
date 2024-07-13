@@ -22,6 +22,32 @@ scaler_co2_207 = load(open('../model_training/scalers/sewy/scaler_co2_sewy_207.p
 models_207 = [model1h_207, model6h_207, model12h_207]
 scalers_207 = [scaler_temperatura_207, scaler_brillo_207, scaler_humedad_207, scaler_airpressure_207, scaler_co2_207]
 
+model1h_214 = load_model('../LSMTTensorflow/bestModel_sewy_214_60.keras')
+model6h_214 = load_model('../LSMTTensorflow/bestModel_sewy_214_360.keras')
+model12h_214 = load_model('../LSMTTensorflow/bestModel_sewy_214_720.keras')
+
+scaler_temperatura_214 = load(open('../model_training/scalers/sewy/scaler_temperature_sewy_214.pkl', 'rb'))
+scaler_brillo_214 = load(open('../model_training/scalers/sewy/scaler_brightness_sewy_214.pkl', 'rb'))
+scaler_humedad_214 = load(open('../model_training/scalers/sewy/scaler_humidity_sewy_214.pkl', 'rb'))
+scaler_airpressure_214 = load(open('../model_training/scalers/sewy/scaler_airpressure_sewy_214.pkl', 'rb'))
+scaler_co2_214 = load(open('../model_training/scalers/sewy/scaler_co2_sewy_214.pkl', 'rb'))
+
+models_214 = [model1h_214, model6h_214, model12h_214]
+scalers_214 = [scaler_temperatura_214, scaler_brillo_214, scaler_humedad_214, scaler_airpressure_214, scaler_co2_214]
+
+model1h_215 = load_model('../LSMTTensorflow/bestModel_sewy_215_60.keras')
+model6h_215 = load_model('../LSMTTensorflow/bestModel_sewy_215_360.keras')
+model12h_215 = load_model('../LSMTTensorflow/bestModel_sewy_215_720.keras')
+
+scaler_temperatura_215 = load(open('../model_training/scalers/sewy/scaler_temperature_sewy_215.pkl', 'rb'))
+scaler_brillo_215 = load(open('../model_training/scalers/sewy/scaler_brightness_sewy_215.pkl', 'rb'))
+scaler_humedad_215 = load(open('../model_training/scalers/sewy/scaler_humidity_sewy_215.pkl', 'rb'))
+scaler_airpressure_215 = load(open('../model_training/scalers/sewy/scaler_airpressure_sewy_215.pkl', 'rb'))
+scaler_co2_215 = load(open('../model_training/scalers/sewy/scaler_co2_sewy_215.pkl', 'rb'))
+
+models_215 = [model1h_215, model6h_215, model12h_215]
+scalers_215 = [scaler_temperatura_215, scaler_brillo_215, scaler_humedad_215, scaler_airpressure_215, scaler_co2_215]
+
 class SewyForm(FlaskForm):
     dispositivo = SelectField('Dispositivo', choices=[('207', '207'), ('214', '214'), ('215', '215')], validators=[DataRequired(message='Debe seleccionar un dispositivo')])
     temperatura = FloatField('Temperatura', validators=[DataRequired(message='El valor añadido no es válido')])
@@ -70,5 +96,9 @@ def sewyPredictionsJSON(request_as_json):
 def define_model_and_scaler_by_device(device):
     if device == '207':
         return models_207, scalers_207
+    elif device == '214':
+        return models_214, scalers_214
+    elif device == '215':
+        return models_215, scalers_215
     else:
         return None, None

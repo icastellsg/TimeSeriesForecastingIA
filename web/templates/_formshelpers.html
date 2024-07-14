@@ -17,7 +17,7 @@
 {% macro render_boolean_field(field) %}
 <div class="mb-3 row">
   {{ field.label(class="col-sm-2 col-form-label") }}
-  <div class="col-sm-1">
+  <div class="d-inline-flex col-sm-10">
     {{ field(**kwargs)|safe }}
     {% if field.errors %}
       <ul class=errors>
@@ -33,7 +33,7 @@
 {% macro render_choices_field(field) %}
 <div class="mb-3 row">
   {{ field.label(class="col-sm-2 col-form-label") }}
-  <div class="d-inline-flex p-2 col-sm-2">
+  <div class="d-inline-flex col-sm-10">
     {{ field(**kwargs)|safe }}
     {% if field.errors %}
       <ul class=errors>

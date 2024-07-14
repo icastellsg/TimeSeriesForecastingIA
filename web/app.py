@@ -22,8 +22,8 @@ def predict_temperature_suntracer_json():
 def predict_temperature_suntracer():
     prediction, graphs, labels, form = suntracerPredictions()
     if prediction:
-        return render_template('predict_with_flaskForms.html', device="Suntracer", form=form, prediction=prediction, img_data=graphs, labels=labels)
-    return render_template('predict_with_flaskForms.html', device="Suntracer", form=form)
+        return render_template('predict_form.html', device="Suntracer", form=form, prediction=prediction, img_data=graphs, labels=labels)
+    return render_template('predict_form.html', device="Suntracer", form=form)
 
 @app.route('/sewy/json', methods=['POST'])
 def predict_temperature_sewy_json():
@@ -35,8 +35,8 @@ def predict_temperature_sewy_json():
 def predict_temperature_sewy():
     prediction, graphs, labels, form = sewyPredictions()
     if prediction:
-        return render_template('predict_with_flaskForms.html', device="Sewy", form=form, prediction=prediction, img_data=graphs, labels=labels)
-    return render_template('predict_with_flaskForms.html', device="Sewy", form=form)
+        return render_template('predict_form.html', device="Sewy", form=form, prediction=prediction, img_data=graphs, labels=labels)
+    return render_template('predict_form.html', device="Sewy", form=form)
 
 @app.route('/knx/json', methods=['POST'])
 def predict_temperature_knx_json():
@@ -48,8 +48,8 @@ def predict_temperature_knx_json():
 def predict_temperature_knx():
     prediction, graphs, labels, form = touchPredictions()
     if prediction:
-        return render_template('predict_with_flaskForms.html', device="KNX Touch", form=form, prediction=prediction, img_data=graphs, labels=labels)
-    return render_template('predict_with_flaskForms.html', device="KNX Touch", form=form)
+        return render_template('predict_form.html', device="KNX Touch", form=form, prediction=prediction, img_data=graphs, labels=labels)
+    return render_template('predict_form.html', device="KNX Touch", form=form)
 
 
 @app.errorhandler(404)

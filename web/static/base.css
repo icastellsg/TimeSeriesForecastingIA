@@ -21,8 +21,8 @@ header {
 }
 
 main {
-
     margin: 20px auto;
+    margin-bottom: 8vh;
     padding: 20px;
     background-color: var(--text-color-contrast);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

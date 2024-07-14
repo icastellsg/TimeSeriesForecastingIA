@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
-from suntracer import SuntracerForm, suntracerPredictions, suntracerPredictionsJSON, labels as suntracer_labels
-from sewy import SewyForm, sewyPredictions, sewyPredictionsJSON, labels as sewy_labels
+from suntracer import SuntracerForm, suntracerPredictions, suntracerPredictionsJSON
+from sewy import SewyForm, sewyPredictions, sewyPredictionsJSON
+from knx import TouchForm, touchPredictions, touchPredictionsJSON
 import json
 import numpy as np
 
@@ -8,10 +9,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
 
 @app.route('/')
-@app.route('/predict/')
-@app.route('/knx/')
 def index():
-    return render_template('predict.html')
+    return render_template('index.html')
 
 @app.route('/suntracer/json', methods=['POST'])
 def predict_temperature_suntracer_json():
@@ -21,8 +20,7 @@ def predict_temperature_suntracer_json():
 
 @app.route('/suntracer/', methods=['GET','POST'])
 def predict_temperature_suntracer():
-    form = SuntracerForm()
-    prediction, graphs, labels = suntracerPredictions()
+    prediction, graphs, labels, form = suntracerPredictions()
     if prediction:
         return render_template('predict_with_flaskForms.html', device="Suntracer", form=form, prediction=prediction, img_data=graphs, labels=labels)
     return render_template('predict_with_flaskForms.html', device="Suntracer", form=form)
@@ -35,12 +33,23 @@ def predict_temperature_sewy_json():
 
 @app.route('/sewy/', methods=['GET','POST'])
 def predict_temperature_sewy():
-    form = SewyForm()
-    prediction, graphs, labels = sewyPredictions()
+    prediction, graphs, labels, form = sewyPredictions()
     if prediction:
         return render_template('predict_with_flaskForms.html', device="Sewy", form=form, prediction=prediction, img_data=graphs, labels=labels)
     return render_template('predict_with_flaskForms.html', device="Sewy", form=form)
 
+@app.route('/knx/json', methods=['POST'])
+def predict_temperature_knx_json():
+    prediction = touchPredictionsJSON(request.json)
+    
+    return prediction
+
+@app.route('/knx/', methods=['GET','POST'])
+def predict_temperature_knx():
+    prediction, graphs, labels, form = touchPredictions()
+    if prediction:
+        return render_template('predict_with_flaskForms.html', device="KNX Touch", form=form, prediction=prediction, img_data=graphs, labels=labels)
+    return render_template('predict_with_flaskForms.html', device="KNX Touch", form=form)
 
 
 @app.errorhandler(404)

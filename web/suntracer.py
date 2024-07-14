@@ -41,7 +41,7 @@ def suntracerPredictions():
         input = predictions_helper.add_day_anual_date(input)
         
         predictions, graphs = predictions_helper.make_predictions(input,models, values_to_predict=labels, scalers=scalers)
-    return predictions, graphs, labels
+    return predictions, graphs, labels, form
 
 def suntracerPredictionsJSON(request_as_json):
     temperatura = np.array(predictions_helper.normalize_data(request_as_json['temperatura'], scaler=scaler_temperatura))

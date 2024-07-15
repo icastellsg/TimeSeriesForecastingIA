@@ -26,21 +26,18 @@ def add_day_anual_date(input):
 
 def make_predictions_json(input, models, values_to_predict=['temperatura'], scalers=[None]):
     number_labels = len(values_to_predict)
-    prediction = []
+    prediction = {}
     
     prediction_1h, _ = get_prediction(models[0], input, "1h", values_to_predict, scalers, plot=False)
-    prediction.append(prediction_1h[-1][-number_labels:])
+    prediction["1h"] = prediction_1h[-1][-number_labels:].tolist()
     
     prediction_6h, _ = get_prediction(models[1], input, "6h", values_to_predict, scalers, plot=False)
-    prediction.append(prediction_6h[-1][-number_labels:])
+    prediction["6h"] = prediction_6h[-1][-number_labels:].tolist()
     
     prediction_12h, _ = get_prediction(models[2], input, "12h", values_to_predict, scalers, plot=False)
-    prediction.append(prediction_12h[-1][-number_labels:])
+    prediction["12h"] = prediction_12h[-1][-number_labels:].tolist()
     
     print(prediction)
-    
-    for i in range(len(prediction)):
-        prediction[i] = np.array(prediction[i], dtype=np.float64).tolist()
     
     return json.dumps(prediction)
 

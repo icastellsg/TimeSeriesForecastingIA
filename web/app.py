@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request
-from suntracer import SuntracerForm, suntracerPredictions, suntracerPredictionsJSON
-from sewy import SewyForm, sewyPredictions, sewyPredictionsJSON
-from knx import TouchForm, touchPredictions, touchPredictionsJSON
-import json
-import numpy as np
+from suntracer import suntracerPredictions, suntracerPredictionsJSON
+from sewy import sewyPredictions, sewyPredictionsJSON
+from knx import touchPredictions, touchPredictionsJSON
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'

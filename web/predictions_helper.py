@@ -82,7 +82,7 @@ def get_prediction(model, value, horizon, values_to_predict=['temperatura'], sca
 def get_prediction_graph(prediction, horizon, label):
     fig = Figure()
     ax = fig.subplots()
-    ax.set_title("Forecasting " + label + "(horizon: " + str(horizon) + ")")
+    ax.set_title("Forecasting " + label + " (horizon: " + str(horizon) + ")")
     ax.set_ylabel("Valor")
     ax.set_xlabel("Minutos")    
     ax.plot(prediction.flatten())
